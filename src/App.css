@@ -1,38 +1,110 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Subrayada:wght@700&family=Raleway:wght@100;200;300;400;500;600;800;900&display=swap');
+
+:root {
+  --dark: #000000;
+  --light: #ffffff;
+  --secondary-color: #8137D7;
+  --third-color: #F2F2F2;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--third-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* NAVBAR SECTION */
+
+/* ////////////////////////////////////////////////////////// */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--dark);
+  color: var(--light);
+  padding: 10px 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav a:hover {
+  color: var(--third-color);
+  cursor: pointer;
+}
+
+nav #logo {
+  font-family: 'Montserrat Subrayada', sans-serif;
+  text-transform: uppercase;
+
+  font-weight: bolder;
+}
+
+/* ////////////////////////////////////////////////////////// */
+
+/* FORM SECTION */
+/* ////////////////////////////////////////{////////////////// */
+.formWrapper {
   display: flex;
   flex-direction: column;
+  text-align: left;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 10vh;
 }
 
-.App-link {
-  color: #61dafb;
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.inputWrapper input,
+.inputWrapper select {
+  padding: 15px;
+  -ms-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  min-width: 200px;
+  border: none;
+  outline: none;
+  margin-top: 10px;
+  box-shadow: 0 0 20px 1px #0000003f;
+}
+
+.inputWrapperNumber {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inputWrapperNumber i {
+  font-size: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+form button {
+  background: var(--dark);
+  padding: 10px 15px;
+  color: var(--light);
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  font-weight: bolder;
+  border: none;
+  box-shadow: 0 0 20px 1px #0000003f;
+}
+
+form button:hover {
+  background-color: var(--light);
+  color: var(--dark);
+
 }
