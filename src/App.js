@@ -13,7 +13,8 @@ const stripePromise = loadStripe(
 function App() {
   const [areaCodes, setAreaCodes] = useState([]);
   const [price, setPrice] = useState(300);
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState();
+  const [loading, setLoading] = useState(true);
 
   const appearance = {
     theme: "night",
@@ -23,34 +24,65 @@ function App() {
     // appearance,
   };
 
-  function getAreaCodes() {
-    axios
+  function formatAreaCodes(data) {
+    var objEntries = Object.entries(data);
+
+    var codes = objEntries.map((e) => e[1]);
+    var areas = objEntries.map((e) => e[0]);
+
+    let acObj;
+    let areaCode = [];
+
+    for (let i = 0; i < areas.length; i++) {
+      for (let j = 0; j < codes[i].length; j++) {
+        if (objEntries[i][0] === areas[i]) {
+          acObj = {
+            area: areas[i],
+            code: codes[i][j],
+          };
+          areaCode.push(acObj);
+          setAreaCodes(areaCode);
+          // console.log(areaCode.area + " - " + areaCode.code);
+        }
+      }
+    }
+  }
+
+  async function getAreaCodes() {
+    await axios
       .get("us_area_codes.json")
-      .then((response) => setAreaCodes(response))
+      .then((response) => formatAreaCodes(response?.data))
       .catch((err) => console.log(err));
   }
 
-  function createPaymentIntent() {
-    axios
-      .post("https://localhost:3001/createPayment", {
-        body: price,
+  async function handlePaymentIntent() {
+    await axios
+      .post("http://localhost:3001/createPayment", {
+        price,
       })
-      // .then((res) => setClientSecret(res.clientSecret))
-      .then((res) => console.log(res))
+      .then((res) => {
+        // console.log(res.data);
+        setClientSecret(res.data.clientSecret);
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    createPaymentIntent();
+    // handlePaymentIntent();
     getAreaCodes();
-    console.log(clientSecret);
   }, []);
   return (
     <div className="App">
       <Navbar />
-      <Elements stripe={stripePromise} options={options}>
-        {/* <Form clientSecret={clientSecret} areaCodes={areaCodes} /> */}
-      </Elements>
+
+      {!loading ? (
+        <p>Loading ...</p>
+      ) : (
+        <Elements stripe={stripePromise} options={options}>
+          <Form clientSecret={clientSecret} areaCodes={areaCodes} />
+        </Elements>
+      )}
     </div>
   );
 }

@@ -102,10 +102,18 @@ export default function Form(props) {
           <div className="inputWrapperNumber">
             <div className="inputWrapper">
               <label>Area Code</label>
-              <select>
-                <option value="" key="">
-                  Enter your area code
+              <select defaultValue={areaCodes[0]?.code}>
+                <option disabled selected>
+                  -- Enter the area code --
                 </option>
+
+                {areaCodes.map((e, i) => {
+                  return (
+                    <option value={e.code} key={i}>
+                      {e.area + " - " + e.code}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             {/* <i>First digit of your new US number</i> */}
@@ -120,7 +128,7 @@ export default function Form(props) {
               padding: "30px",
             }}
           >
-            <PaymentElement />
+            {/* <PaymentElement /> */}
           </div>
         </div>
 

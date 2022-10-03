@@ -70,12 +70,18 @@ form {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  min-width: 200px;
+  min-width: 400px;
+  min-height: 30px;
   border: none;
   outline: none;
   margin-top: 10px;
   box-shadow: 0 0 20px 1px #0000003f;
 }
+
+.inputWrapper option{
+  font-size: 15px;
+}
+
 
 .inputWrapperNumber {
   display: flex;
